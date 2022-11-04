@@ -26,8 +26,14 @@ const TodoMainStyle = styled.div<{ isEdit: boolean }>`
     `}
 `;
 
+interface ITodos {
+  text: string;
+  checked: boolean;
+  important: boolean;
+}
+
 const TodoTemplate = () => {
-  const [todos, setTodos] = useState(getLocalStorage());
+  const [todos, setTodos] = useState<ITodos[]>(getLocalStorage());
   const [isEdit, setIsEdit] = useState(false);
   const [newText, setNewText] = useState(null);
 

@@ -8,6 +8,15 @@ const TodoListBox = styled.div`
   padding: 0 3rem;
 `;
 
+interface Props {
+  onChangeSelectedTodo: any;
+  todos: any;
+  onToggle: any;
+  onRemove: any;
+  onImportant: any;
+  setIsEdit: any;
+}
+
 const TodoList = ({
   onChangeSelectedTodo,
   todos,
@@ -15,7 +24,7 @@ const TodoList = ({
   onRemove,
   onImportant,
   setIsEdit,
-}: any) => {
+}: Props) => {
   return (
     <TodoListBox>
       {todos.map((todo: any) => (

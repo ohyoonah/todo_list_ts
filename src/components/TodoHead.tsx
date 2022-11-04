@@ -26,7 +26,11 @@ const TodoHeadBox = styled.div`
   }
 `;
 
-const TodoHead = ({ task }: any) => {
+interface Props {
+  task: any;
+}
+
+const TodoHead = ({ task }: Props) => {
   const today = new Date();
 
   const dateString = today.toLocaleDateString("ko-KR", {

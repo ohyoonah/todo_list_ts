@@ -73,14 +73,20 @@ const EditForm = styled.form`
   }
 `;
 
-const TodoEdit = ({ setIsEdit, newText, onUpdate }: any) => {
+interface EditProps {
+  setIsEdit: any;
+  newText: any;
+  onUpdate: any;
+}
+
+const TodoEdit = ({ setIsEdit, newText, onUpdate }: EditProps) => {
   const [inputValue, setInputValue] = useState(newText.text);
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onUpdate(newText.id, inputValue);
   };

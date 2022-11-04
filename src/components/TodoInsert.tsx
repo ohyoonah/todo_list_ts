@@ -58,11 +58,15 @@ const AddButton = styled.button<{ visible: boolean }>`
     `}
 `;
 
-const TodoInsert = ({ onInsert }: any) => {
+interface Props {
+  onInsert: any;
+}
+
+const TodoInsert = ({ onInsert }: Props) => {
   const [visible, setVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputValue) return;
     onInsert(inputValue);
@@ -73,7 +77,7 @@ const TodoInsert = ({ onInsert }: any) => {
     setVisible(!visible);
   };
 
-  const onChange = useCallback((e: any) => {
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }, []);
 

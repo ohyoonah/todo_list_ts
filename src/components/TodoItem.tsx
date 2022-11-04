@@ -63,6 +63,15 @@ const TodoItemRemove = styled.div`
   color: var(--light-red);
 `;
 
+interface Props {
+  onChangeSelectedTodo: any;
+  todo: any;
+  onRemove: any;
+  onToggle: any;
+  onImportant: any;
+  setIsEdit: any;
+}
+
 const TodoItem = ({
   onChangeSelectedTodo,
   todo,
@@ -70,7 +79,7 @@ const TodoItem = ({
   onToggle,
   onImportant,
   setIsEdit,
-}: any) => {
+}: Props) => {
   const { id, text, checked, important } = todo;
 
   return (
