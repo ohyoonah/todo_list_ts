@@ -20,7 +20,7 @@ const InsertInput = styled.input`
   }
 `;
 
-const AddButton = styled.button`
+const AddButton = styled.button<{ visible: boolean }>`
   background: var(--blue);
   border: none;
   outline: none;
@@ -58,11 +58,11 @@ const AddButton = styled.button`
     `}
 `;
 
-const TodoInsert = ({ onInsert }) => {
+const TodoInsert = ({ onInsert }: any) => {
   const [visible, setVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!inputValue) return;
     onInsert(inputValue);
@@ -73,7 +73,7 @@ const TodoInsert = ({ onInsert }) => {
     setVisible(!visible);
   };
 
-  const onChange = useCallback((e) => {
+  const onChange = useCallback((e: any) => {
     setInputValue(e.target.value);
   }, []);
 

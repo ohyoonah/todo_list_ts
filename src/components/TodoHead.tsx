@@ -26,7 +26,7 @@ const TodoHeadBox = styled.div`
   }
 `;
 
-const TodoHead = ({ task }) => {
+const TodoHead = ({ task }: any) => {
   const today = new Date();
 
   const dateString = today.toLocaleDateString("ko-KR", {

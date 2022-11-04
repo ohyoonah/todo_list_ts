@@ -17,7 +17,7 @@ const TodoTemplateBox = styled.div`
   box-shadow: 8px 8px 30px var(--black);
 `;
 
-const TodoMainStyle = styled.div`
+const TodoMainStyle = styled.div<{ isEdit: boolean }>`
   ${({ isEdit }) =>
     isEdit &&
     css`
@@ -34,7 +34,7 @@ const TodoTemplate = () => {
   function getLocalStorage() {
     let todos = localStorage.getItem("todos");
     if (todos) {
-      return (todos = JSON.parse(localStorage.getItem("todos")));
+      return (todos = JSON.parse(localStorage.getItem("todos") || "[]"));
     } else {
       return [];
     }
@@ -44,13 +44,13 @@ const TodoTemplate = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const onChangeSelectedTodo = (todo) => {
+  const onChangeSelectedTodo = (todo: any) => {
     setNewText(todo);
   };
 
   const nextId = useRef(0);
 
-  const onInsert = (text) => {
+  const onInsert = (text: string) => {
     const todo = {
       id: nextId.current,
       text,
@@ -61,32 +61,34 @@ const TodoTemplate = () => {
     nextId.current += 1;
   };
 
-  const onToggle = (id) => {
+  const onToggle = (id: number) => {
     setTodos(
-      todos.map((todo) =>
+      todos.map((todo: any) =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo
       )
     );
   };
 
-  const onRemove = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const onRemove = (id: number) => {
+    setTodos(todos.filter((todo: any) => todo.id !== id));
   };
 
-  const onImportant = (id) => {
+  const onImportant = (id: number) => {
     setTodos(
-      todos.map((todo) =>
+      todos.map((todo: any) =>
         todo.id === id ? { ...todo, important: !todo.important } : todo
       )
     );
   };
 
-  const onUpdate = (id, text) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)));
+  const onUpdate = (id: number, text: string) => {
+    setTodos(
+      todos.map((todo: any) => (todo.id === id ? { ...todo, text } : todo))
+    );
     setIsEdit(false);
   };
 
-  const task = todos.filter((todo) => !todo.checked).length;
+  const task = todos.filter((todo: any) => !todo.checked).length;
 
   return (
     <TodoTemplateBox>

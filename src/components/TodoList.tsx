@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TodoItem from "./TodoItem.js";
+import TodoItem from "./TodoItem";
 
 const TodoListBox = styled.div`
   overflow-y: auto;
@@ -15,10 +15,10 @@ const TodoList = ({
   onRemove,
   onImportant,
   setIsEdit,
-}) => {
+}: any) => {
   return (
     <TodoListBox>
-      {todos.map((todo) => (
+      {todos.map((todo: any) => (
         <TodoItem
           key={todo.id}
           todo={todo}

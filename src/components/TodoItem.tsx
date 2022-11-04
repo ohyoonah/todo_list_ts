@@ -8,7 +8,7 @@ import {
   MdModeEditOutline,
 } from "react-icons/md";
 
-const TodoItemBox = styled.div`
+const TodoItemBox = styled.div<{ important: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: 1.3rem;
@@ -70,7 +70,7 @@ const TodoItem = ({
   onToggle,
   onImportant,
   setIsEdit,
-}) => {
+}: any) => {
   const { id, text, checked, important } = todo;
 
   return (
