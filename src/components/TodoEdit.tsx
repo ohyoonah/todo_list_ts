@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
 const EditForm = styled.form`
@@ -74,7 +74,7 @@ const EditForm = styled.form`
 `;
 
 interface EditProps {
-  setIsEdit: any;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
   newText: any;
   onUpdate: any;
 }
