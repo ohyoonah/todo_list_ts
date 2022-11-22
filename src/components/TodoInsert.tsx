@@ -1,6 +1,8 @@
 import { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import { onInsert } from "../modules/todoSlice";
 
 const InsertForm = styled.form`
   display: flex;
@@ -58,24 +60,24 @@ const AddButton = styled.button<{ visible: boolean }>`
     `}
 `;
 
-interface Props {
-  onInsert: any;
-}
-
-const TodoInsert = ({ onInsert }: Props) => {
+const TodoInsert = () => {
   const [visible, setVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!inputValue) return;
-    onInsert(inputValue);
-    setInputValue("");
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!inputValue) return;
+      dispatch(onInsert(inputValue));
+      setInputValue("");
+    },
+    [inputValue, dispatch]
+  );
 
-  const onClick = () => {
+  const onClick = useCallback(() => {
     setVisible(!visible);
-  };
+  }, [visible]);
 
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

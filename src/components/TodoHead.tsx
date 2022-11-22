@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { Todos } from "../modules/todoSlice";
 
 const TodoHeadBox = styled.div`
   padding: 2rem;
@@ -26,12 +28,10 @@ const TodoHeadBox = styled.div`
   }
 `;
 
-interface Props {
-  task: any;
-}
-
-const TodoHead = ({ task }: Props) => {
+const TodoHead = () => {
+  const todolist = useSelector(({ todo }: any) => todo);
   const today = new Date();
+  const task = todolist.filter((todo: Todos) => !todo.checked).length;
 
   const dateString = today.toLocaleDateString("ko-KR", {
     year: "numeric",

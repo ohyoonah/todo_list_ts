@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
 
@@ -10,32 +11,19 @@ const TodoListBox = styled.div`
 
 interface Props {
   onChangeSelectedTodo: any;
-  todos: any;
-  onToggle: any;
-  onRemove: any;
-  onImportant: any;
   setIsEdit: any;
 }
 
-const TodoList = ({
-  onChangeSelectedTodo,
-  todos,
-  onToggle,
-  onRemove,
-  onImportant,
-  setIsEdit,
-}: Props) => {
+const TodoList = ({ onChangeSelectedTodo, setIsEdit }: Props) => {
+  const todolist = useSelector(({ todo }: any) => todo);
   return (
     <TodoListBox>
-      {todos.map((todo: any) => (
+      {todolist.map((todo: any) => (
         <TodoItem
           key={todo.id}
           todo={todo}
-          onToggle={onToggle}
-          onRemove={onRemove}
-          onImportant={onImportant}
-          setIsEdit={setIsEdit}
           onChangeSelectedTodo={onChangeSelectedTodo}
+          setIsEdit={setIsEdit}
         />
       ))}
     </TodoListBox>

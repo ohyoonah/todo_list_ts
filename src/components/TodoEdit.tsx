@@ -1,5 +1,7 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useCallback, Dispatch, SetStateAction } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { onUpdate } from "../modules/todoSlice";
 
 const EditForm = styled.form`
   background: white;
@@ -76,20 +78,24 @@ const EditForm = styled.form`
 interface EditProps {
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   newText: any;
-  onUpdate: any;
 }
 
-const TodoEdit = ({ setIsEdit, newText, onUpdate }: EditProps) => {
+const TodoEdit = ({ setIsEdit, newText }: EditProps) => {
   const [inputValue, setInputValue] = useState(newText.text);
+  const dispatch = useDispatch();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-  };
+  }, []);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onUpdate(newText.id, inputValue);
-  };
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      dispatch(onUpdate({ id: newText.id, text: inputValue }));
+      setIsEdit(false);
+    },
+    [dispatch, inputValue, newText.id, setIsEdit]
+  );
 
   return (
     <EditForm onSubmit={onSubmit}>

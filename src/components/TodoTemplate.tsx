@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
+import { Todos } from "../modules/todoSlice";
 import TodoHead from "./TodoHead";
 import TodoInsert from "./TodoInsert";
 import TodoList from "./TodoList";
@@ -26,90 +27,25 @@ const TodoMainStyle = styled.div<{ isEdit: boolean }>`
     `}
 `;
 
-interface ITodos {
-  text: string;
-  checked: boolean;
-  important: boolean;
-}
-
 const TodoTemplate = () => {
-  const [todos, setTodos] = useState<ITodos[]>(getLocalStorage());
   const [isEdit, setIsEdit] = useState(false);
-  const [newText, setNewText] = useState(null);
+  const [newText, setNewText] = useState<Todos | null>(null);
 
-  function getLocalStorage() {
-    let todos = localStorage.getItem("todos");
-    if (todos) {
-      return (todos = JSON.parse(localStorage.getItem("todos") || "[]"));
-    } else {
-      return [];
-    }
-  }
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-  const onChangeSelectedTodo = (todo: any) => {
+  const onChangeSelectedTodo = (todo: Todos) => {
     setNewText(todo);
   };
-
-  const onInsert = (text: string) => {
-    const todo = {
-      id: Date.now(),
-      text,
-      checked: false,
-      important: false,
-    };
-    setTodos(todos.concat(todo));
-  };
-
-  const onToggle = (id: number) => {
-    setTodos(
-      todos.map((todo: any) =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
-      )
-    );
-  };
-
-  const onRemove = (id: number) => {
-    setTodos(todos.filter((todo: any) => todo.id !== id));
-  };
-
-  const onImportant = (id: number) => {
-    setTodos(
-      todos.map((todo: any) =>
-        todo.id === id ? { ...todo, important: !todo.important } : todo
-      )
-    );
-  };
-
-  const onUpdate = (id: number, text: string) => {
-    setTodos(
-      todos.map((todo: any) => (todo.id === id ? { ...todo, text } : todo))
-    );
-    setIsEdit(false);
-  };
-
-  const task = todos.filter((todo: any) => !todo.checked).length;
 
   return (
     <TodoTemplateBox>
       <TodoMainStyle isEdit={isEdit}>
-        <TodoHead task={task} />
-        <TodoInsert onInsert={onInsert} />
+        <TodoHead />
+        <TodoInsert />
         <TodoList
-          todos={todos}
-          onRemove={onRemove}
-          onToggle={onToggle}
-          onImportant={onImportant}
-          setIsEdit={setIsEdit}
           onChangeSelectedTodo={onChangeSelectedTodo}
+          setIsEdit={setIsEdit}
         />
       </TodoMainStyle>
-      {isEdit && (
-        <TodoEdit setIsEdit={setIsEdit} newText={newText} onUpdate={onUpdate} />
-      )}
+      {isEdit && <TodoEdit setIsEdit={setIsEdit} newText={newText} />}
     </TodoTemplateBox>
   );
 };

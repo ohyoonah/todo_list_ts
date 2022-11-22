@@ -1,4 +1,7 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { Todos } from "../modules/todoSlice";
+import { onChecked, onImportant, onRemove } from "../modules/todoSlice";
 import {
   MdCheckBoxOutlineBlank,
   MdCheckBox,
@@ -65,26 +68,17 @@ const TodoItemRemove = styled.div`
 
 interface Props {
   onChangeSelectedTodo: any;
-  todo: any;
-  onRemove: any;
-  onToggle: any;
-  onImportant: any;
+  todo: Todos;
   setIsEdit: any;
 }
 
-const TodoItem = ({
-  onChangeSelectedTodo,
-  todo,
-  onRemove,
-  onToggle,
-  onImportant,
-  setIsEdit,
-}: Props) => {
+const TodoItem = ({ todo, onChangeSelectedTodo, setIsEdit }: Props) => {
   const { id, text, checked, important } = todo;
+  const dispatch = useDispatch();
 
   return (
     <TodoItemBox important={important}>
-      <div className="checkBox" onClick={() => onToggle(id)}>
+      <div className="checkBox" onClick={() => dispatch(onChecked(id))}>
         {checked ? (
           <>
             <MdCheckBox className="check" />
@@ -97,7 +91,7 @@ const TodoItem = ({
           </>
         )}
       </div>
-      <TodoImportant onClick={() => onImportant(id)}>
+      <TodoImportant onClick={() => dispatch(onImportant(id))}>
         {important ? <MdOutlineStar /> : <MdOutlineStarOutline />}
       </TodoImportant>
       <TodoItemEdit
@@ -109,7 +103,7 @@ const TodoItem = ({
         <MdModeEditOutline />
       </TodoItemEdit>
       <TodoItemRemove>
-        <MdRemoveCircleOutline onClick={() => onRemove(id)} />
+        <MdRemoveCircleOutline onClick={() => dispatch(onRemove(id))} />
       </TodoItemRemove>
     </TodoItemBox>
   );
