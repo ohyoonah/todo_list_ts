@@ -22,21 +22,27 @@
 
 ```
 ├─ src
-│  ├─ App.js
+│  ├─ App.tsx
 │  ├─ components
-│  │  ├─ TodoEdit.js
-│  │  ├─ TodoHead.js
-│  │  ├─ TodoInsert.js
-│  │  ├─ TodoItem.js
-│  │  ├─ TodoList.js
-│  │  └─ TodoTemplate.js
-│  ├─ index.css
-│  ├─ index.js
-│  ├─ reportWebVitals.js
-│  ├─ setupTests.js
-│  └─ style
-│     └─ GlobalStyle.js
-└─ yarn.lock
+│  │  ├─ TodoEdit.tsx
+│  │  ├─ TodoHead.tsx
+│  │  ├─ TodoInsert.tsx
+│  │  ├─ TodoItem.tsx
+│  │  ├─ TodoList.tsx
+│  │  └─ TodoTemplate.tsx
+│  ├─ index.tsx
+│  ├─ store
+│  │  ├─ modules
+│  │  │  └─ todoSlice.tsx
+│  │  └─ store.tsx
+│  └─ styles
+│     ├─ colorPalette.ts
+│     ├─ GlobalStyle.ts
+│     ├─ todoEditStyle.ts
+│     ├─ todoHeadStyle.ts
+│     ├─ todoInsertStyle.ts
+│     ├─ todoListStyle.ts
+│     └─ todoTemplateStyle.ts
 ```
 
 <br>

@@ -31,7 +31,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://ohyoonah.github.io/todo_list",
+  "homepage": "https://ohyoonah.github.io/todo_list_ts",
   "eslintConfig": {
     "extends": [
       "react-app",
