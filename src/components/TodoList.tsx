@@ -1,24 +1,19 @@
+import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import TodoItem from "./TodoItem";
-
-const TodoListBox = styled.div`
-  overflow-y: auto;
-  height: 100vh;
-  margin-top: 3rem;
-  padding: 0 3rem;
-`;
+import { Todos } from "../store/modules/todoSlice";
+import { List } from "../styles/todoListStyle";
 
 interface Props {
-  onChangeSelectedTodo: any;
-  setIsEdit: any;
+  onChangeSelectedTodo: (todo: Todos) => void;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
 
 const TodoList = ({ onChangeSelectedTodo, setIsEdit }: Props) => {
   const todolist = useSelector(({ todo }: any) => todo);
   return (
-    <TodoListBox>
-      {todolist.map((todo: any) => (
+    <List>
+      {todolist.map((todo: Todos) => (
         <TodoItem
           key={todo.id}
           todo={todo}
@@ -26,7 +21,7 @@ const TodoList = ({ onChangeSelectedTodo, setIsEdit }: Props) => {
           setIsEdit={setIsEdit}
         />
       ))}
-    </TodoListBox>
+    </List>
   );
 };
 

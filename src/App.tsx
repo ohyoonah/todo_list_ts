@@ -1,5 +1,5 @@
 import TodoTemplate from "./components/TodoTemplate";
-import GlobalStyle from "./style/GlobalStyle";
+import GlobalStyle from "./styles/GlobalStyle";
 
 const App = () => {
   return (

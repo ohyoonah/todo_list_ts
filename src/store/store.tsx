@@ -9,7 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import todoSlice from "./todoSlice";
+import todoSlice from "./modules/todoSlice";
 
 const persistConfig = {
   key: "root",

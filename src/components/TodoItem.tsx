@@ -1,7 +1,7 @@
+import { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { Todos } from "../modules/todoSlice";
-import { onChecked, onImportant, onRemove } from "../modules/todoSlice";
+import { Todos } from "../store/modules/todoSlice";
+import { onChecked, onImportant, onRemove } from "../store/modules/todoSlice";
 import {
   MdCheckBoxOutlineBlank,
   MdCheckBox,
@@ -10,66 +10,17 @@ import {
   MdOutlineStar,
   MdModeEditOutline,
 } from "react-icons/md";
-
-const TodoItemBox = styled.div<{ important: boolean }>`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.3rem;
-  ${({ important }) => important && `font-weight: 600;`}
-
-  .checkBox {
-    cursor: pointer;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    color: var(--black);
-    .check {
-      color: var(--blue);
-    }
-    .itemText {
-      flex: 1;
-      margin-left: 1rem;
-    }
-    .itemCheckText {
-      flex: 1;
-      margin-left: 1rem;
-      text-decoration: line-through;
-      color: var(--blue-gray);
-    }
-  }
-`;
-
-const TodoImportant = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 1.8rem;
-  margin-right: 0.8rem;
-  color: var(--yellow);
-`;
-
-const TodoItemEdit = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 1.8rem;
-  margin-right: 0.8rem;
-  color: var(--blue-gray);
-`;
-
-const TodoItemRemove = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 1.8rem;
-  color: var(--light-red);
-`;
+import {
+  ItemBlock,
+  ImportantButton,
+  EditButton,
+  RemoveButton,
+} from "../styles/todoListStyle";
 
 interface Props {
-  onChangeSelectedTodo: any;
+  onChangeSelectedTodo: (todo: Todos) => void;
   todo: Todos;
-  setIsEdit: any;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
 
 const TodoItem = ({ todo, onChangeSelectedTodo, setIsEdit }: Props) => {
@@ -77,7 +28,7 @@ const TodoItem = ({ todo, onChangeSelectedTodo, setIsEdit }: Props) => {
   const dispatch = useDispatch();
 
   return (
-    <TodoItemBox important={important}>
+    <ItemBlock important={important}>
       <div className="checkBox" onClick={() => dispatch(onChecked(id))}>
         {checked ? (
           <>
@@ -91,21 +42,21 @@ const TodoItem = ({ todo, onChangeSelectedTodo, setIsEdit }: Props) => {
           </>
         )}
       </div>
-      <TodoImportant onClick={() => dispatch(onImportant(id))}>
+      <ImportantButton onClick={() => dispatch(onImportant(id))}>
         {important ? <MdOutlineStar /> : <MdOutlineStarOutline />}
-      </TodoImportant>
-      <TodoItemEdit
+      </ImportantButton>
+      <EditButton
         onClick={() => {
           onChangeSelectedTodo(todo);
           setIsEdit(true);
         }}
       >
         <MdModeEditOutline />
-      </TodoItemEdit>
-      <TodoItemRemove>
+      </EditButton>
+      <RemoveButton>
         <MdRemoveCircleOutline onClick={() => dispatch(onRemove(id))} />
-      </TodoItemRemove>
-    </TodoItemBox>
+      </RemoveButton>
+    </ItemBlock>
   );
 };
 

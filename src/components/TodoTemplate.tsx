@@ -1,52 +1,32 @@
 import { useState } from "react";
-import styled, { css } from "styled-components";
-import { Todos } from "../modules/todoSlice";
+import { Todos } from "../store/modules/todoSlice";
 import TodoHead from "./TodoHead";
 import TodoInsert from "./TodoInsert";
 import TodoList from "./TodoList";
 import TodoEdit from "./TodoEdit";
-
-const TodoTemplateBox = styled.div`
-  width: 512px;
-  height: 600px;
-  margin: 0 auto;
-  margin-top: 5rem;
-  border-radius: 16px;
-  overflow: hidden;
-  background: white;
-  position: relative;
-  box-shadow: 8px 8px 30px var(--black);
-`;
-
-const TodoMainStyle = styled.div<{ isEdit: boolean }>`
-  ${({ isEdit }) =>
-    isEdit &&
-    css`
-      opacity: 0.2;
-      background-color: rgba(0, 0, 0, 0.5);
-    `}
-`;
+import { Wapper, TodosBlock } from "../styles/todoTemplateStyle";
 
 const TodoTemplate = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [newText, setNewText] = useState<Todos | null>(null);
 
-  const onChangeSelectedTodo = (todo: Todos) => {
+  const onChangeSelectedTodo = (todo: Todos | null) => {
     setNewText(todo);
   };
 
+  console.log(newText);
   return (
-    <TodoTemplateBox>
-      <TodoMainStyle isEdit={isEdit}>
+    <Wapper>
+      <TodosBlock isEdit={isEdit}>
         <TodoHead />
         <TodoInsert />
         <TodoList
           onChangeSelectedTodo={onChangeSelectedTodo}
           setIsEdit={setIsEdit}
         />
-      </TodoMainStyle>
+      </TodosBlock>
       {isEdit && <TodoEdit setIsEdit={setIsEdit} newText={newText} />}
-    </TodoTemplateBox>
+    </Wapper>
   );
 };
 
