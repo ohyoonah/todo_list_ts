@@ -13,7 +13,8 @@ export const ItemBlock = styled.div<{ important: boolean }>`
   display: flex;
   align-items: center;
 
-  margin-bottom: 1.3rem;
+  height: 40px;
+  margin-bottom: 0.8rem;
 
   font-weight: ${({ important }) => important && "600"};
 
@@ -25,6 +26,11 @@ export const ItemBlock = styled.div<{ important: boolean }>`
     font-size: 1.5rem;
 
     cursor: pointer;
+
+    span {
+      margin-top: 3px;
+      font-size: 1.1rem;
+    }
 
     .check {
       color: ${color.blue};

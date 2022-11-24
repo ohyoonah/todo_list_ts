@@ -33,12 +33,12 @@ const TodoItem = ({ todo, onChangeSelectedTodo, setIsEdit }: Props) => {
         {checked ? (
           <>
             <MdCheckBox className="check" />
-            <div className="itemCheckText">{text}</div>
+            <span className="itemCheckText">{text}</span>
           </>
         ) : (
           <>
             <MdCheckBoxOutlineBlank />
-            <div className="itemText">{text}</div>
+            <span className="itemText">{text}</span>
           </>
         )}
       </div>
