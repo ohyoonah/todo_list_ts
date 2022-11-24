@@ -1,4 +1,11 @@
-import { useState, useCallback, Dispatch, SetStateAction } from "react";
+import {
+  useState,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+  FormEvent,
+  ChangeEvent,
+} from "react";
 import { useDispatch } from "react-redux";
 import { onUpdate } from "../store/modules/todoSlice";
 import { Form, Overlay } from "../styles/todoEditStyle";
@@ -13,14 +20,14 @@ const TodoEdit = ({ setIsEdit, newText }: EditProps) => {
   const [inputValue, setInputValue] = useState(text);
   const dispatch = useDispatch();
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }, []);
 
   const onSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch(onUpdate({ id: id, text: inputValue }));
+      dispatch(onUpdate({ id, text: inputValue }));
       setIsEdit(false);
     },
     [dispatch, inputValue, id, setIsEdit]

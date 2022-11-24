@@ -12,7 +12,7 @@ import {
 import todoSlice from "./modules/todoSlice";
 
 const persistConfig = {
-  key: "root",
+  key: "todos",
   storage,
   whitelist: ["todo"],
 };
@@ -29,5 +29,5 @@ export const store = configureStore({
       },
     }),
 });
-
 export const persistor = persistStore(store);
+export type RootState = ReturnType<typeof persistedReducer>;

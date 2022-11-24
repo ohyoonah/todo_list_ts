@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
-import { Todos } from "../store/modules/todoSlice";
 import { Header } from "../styles/todoHeadStyle";
+import { Todos } from "../store/modules/todoSlice";
+import { RootState } from "../store";
 
 const TodoHead = () => {
-  const todolist = useSelector(({ todo }: any) => todo);
-  const today = new Date();
+  const todolist = useSelector(({ todo }: RootState) => todo);
   const task = todolist.filter((todo: Todos) => !todo.checked).length;
+  const today = new Date();
 
   const dateString = today.toLocaleDateString("ko-KR", {
     year: "numeric",

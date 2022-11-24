@@ -14,7 +14,6 @@ const TodoTemplate = () => {
     setNewText(todo);
   };
 
-  console.log(newText);
   return (
     <Wapper>
       <TodosBlock isEdit={isEdit}>

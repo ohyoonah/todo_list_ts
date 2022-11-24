@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { MdAdd } from "react-icons/md";
 import { onInsert } from "../store/modules/todoSlice";
@@ -9,8 +9,8 @@ const TodoInsert = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!inputValue) return;
       dispatch(onInsert(inputValue));
@@ -23,12 +23,12 @@ const TodoInsert = () => {
     setVisible(!visible);
   }, [visible]);
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }, []);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={onSubmit}>
       {visible && (
         <Input
           autoFocus
